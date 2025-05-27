@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>내 정보</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { background-color: #111; color: #fff; font-family: Pretendard, sans-serif; padding: 2rem; }
+    label, input, button { display: block; width: 100%; margin-bottom: 1rem; border-radius: 0.5rem; }
+    input { padding: 0.75rem; background: #222; color: #fff; border: none; }
+    button { padding: 0.75rem; background-color: #4CAF50; color: white; border: none; font-weight: bold; cursor: pointer; }
+    .logout { background-color: #ff4d4d; margin-top: 2rem; }
+  </style>
+</head>
+<body>
+  <h2>내 정보</h2>
+  <div class="info">
+    <p><strong>아이디:</strong> <span id="id"></span></p>
+    <p><strong>닉네임:</strong> <span id="nick"></span></p>
+  </div>
+  <form onsubmit="changeNick(event)">
+    <label for="newNick">새 닉네임</label>
+    <input type="text" id="newNick" required>
+    <label for="pwCheck">비밀번호 확인</label>
+    <input type="password" id="pwCheck" required>
+    <button type="submit">닉네임 변경</button>
+  </form>
+  <button class="logout" onclick="logout()">로그아웃</button>
+  <br>
+  <a href="index.html" style="color: #aaa;">← 메인으로</a>
+
+  <script>
+    const userId = localStorage.getItem('loggedInUser');
+    if (!userId) { alert('로그인이 필요합니다.'); location.href = 'login.html'; }
+    const user = JSON.parse(localStorage.getItem(userId));
+    document.getElementById('id').textContent = userId;
+    document.getElementById('nick').textContent = user.nick;
+
+    function changeNick(e) {
+      e.preventDefault();
+      const newNick = document.getElementById('newNick').value;
+      const pwCheck = document.getElementById('pwCheck').value;
+      if (pwCheck !== user.pw) return alert('비밀번호가 틀렸습니다.');
+      user.nick = newNick;
+      localStorage.setItem(userId, JSON.stringify(user));
+      alert('닉네임이 변경되었습니다.');
+      location.reload();
+    }
+
+    function logout() {
+      localStorage.removeItem('loggedInUser');
+      location.href = 'index.html';
+    }
+  </script>
+</body>
+</html>
