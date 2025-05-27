@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>로그인</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { background-color: #111; color: #fff; font-family: 'Pretendard', sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+    .container { background-color: #1e1e1e; padding: 2rem; border-radius: 1rem; width: 300px; box-shadow: 0 0 20px rgba(255,255,255,0.1); }
+    input, button { width: 100%; padding: 0.75rem; margin-bottom: 1rem; border-radius: 0.5rem; border: none; }
+    input { background-color: #2e2e2e; color: white; }
+    button { background-color: #ff4d4d; color: white; font-weight: bold; cursor: pointer; }
+    a { display: inline-block; color: #999; text-decoration: none; font-size: 0.9rem; margin-top: 10px; }
+    a:hover { color: white; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>로그인</h2>
+    <form onsubmit="login(event)">
+      <input type="text" id="id" placeholder="아이디" required>
+      <input type="password" id="pw" placeholder="비밀번호" required>
+      <button type="submit">로그인</button>
+    </form>
+    <a href="signup.html">회원가입</a>
+  </div>
+  <script>
+    function login(e) {
+      e.preventDefault();
+      const id = document.getElementById('id').value;
+      const pw = document.getElementById('pw').value;
+      const user = JSON.parse(localStorage.getItem(id));
+      if (!user) return alert('존재하지 않는 아이디입니다.');
+      if (user.pw !== pw) return alert('비밀번호가 틀렸습니다.');
+      localStorage.setItem('loggedInUser', id);
+      alert('로그인 성공');
+      location.href = 'index.html';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>회원가입</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { background-color: #111; color: #fff; font-family: 'Pretendard', sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+    .container { background-color: #1e1e1e; padding: 2rem; border-radius: 1rem; width: 300px; box-shadow: 0 0 20px rgba(255,255,255,0.1); }
+    input, button { width: 100%; padding: 0.75rem; margin-bottom: 1rem; border-radius: 0.5rem; border: none; }
+    input { background-color: #2e2e2e; color: white; }
+    button { background-color: #4CAF50; color: white; font-weight: bold; cursor: pointer; }
+    a { display: block; text-align: center; color: #999; text-decoration: none; }
+    a:hover { color: white; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>회원가입</h2>
+    <form onsubmit="register(event)">
+      <input type="text" id="id" placeholder="아이디" required>
+      <input type="password" id="pw" placeholder="비밀번호" required>
+      <input type="text" id="nick" placeholder="닉네임" required>
+      <button type="submit">가입하기</button>
+    </form>
+    <a href="login.html">← 로그인 페이지</a>
+  </div>
+  <script>
+    function register(e) {
+      e.preventDefault();
+      const id = document.getElementById('id').value;
+      const pw = document.getElementById('pw').value;
+      const nick = document.getElementById('nick').value;
+      if (localStorage.getItem(id)) return alert('이미 존재하는 아이디입니다.');
+      localStorage.setItem(id, JSON.stringify({ pw, nick }));
+      alert('회원가입 완료');
+      location.href = 'login.html';
+    }
+  </script>
+</body>
+</html>

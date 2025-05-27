@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>AMnotify KR</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: 'Pretendard', sans-serif; background-color: #111; color: #fff; margin: 0; }
+    header { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; background-color: #1a1a1a; }
+    .btn { padding: 0.5rem 1rem; background-color: #ff4d4d; border: none; border-radius: 0.5rem; color: white; font-weight: bold; cursor: pointer; }
+    .btn:hover { background-color: #e04343; }
+    .user-info { display: flex; gap: 1rem; align-items: center; }
+  </style>
+</head>
+<body>
+  <header>
+    <h2>AMnotify KR</h2>
+    <div id="authArea">
+      <button class="btn" onclick="location.href='login.html'">로그인</button>
+    </div>
+  </header>
+  <script>
+    const authArea = document.getElementById('authArea');
+    const userId = localStorage.getItem('loggedInUser');
+    if (userId) {
+      const user = JSON.parse(localStorage.getItem(userId));
+      authArea.innerHTML = `
+        <div class="user-info">
+          <span><strong>${user.nick}</strong>님</span>
+          <button class="btn" onclick="location.href='profile.html'">내 정보</button>
+        </div>`;
+    }
+  </script>
+</body>
+</html>
